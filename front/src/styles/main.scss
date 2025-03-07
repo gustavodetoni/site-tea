@@ -1,0 +1,227 @@
+header {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    background-color: #C9E9F2;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media screen and (max-width: 1400px){
+        height: 60px;
+    }
+
+
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h1 {
+            font-family: "Jua", sans-serif;
+            color: #0A6894;
+            font-weight: bold;
+        }
+
+        div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+
+            &.login{
+              gap: 15px;
+              
+              i{
+                font-size: 18px;
+              }
+
+            }
+
+            .header-item {
+                color: #000;
+                cursor: pointer;
+                text-decoration: none;
+                text-transform: uppercase;
+                font-size: 18px;
+                margin: 0;
+                position: relative;
+
+                @media screen and (max-width: 1400px){
+                    font-size: 14px;
+                }
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    width: 100%;
+                    height: 3px;
+                    bottom: -5px;
+                    left: 0;
+                    background-color: #000;
+                    transform: scaleX(0);
+                    transform-origin: bottom;
+                    transition: transform 0.2s ease-out;
+                }
+
+                &:hover::after {
+                    transform: scaleX(1);
+                    transform-origin: bottom;
+                }
+            }
+        }
+    }
+
+    .header-mobile {
+        display: none;
+
+        h1 {
+            margin-bottom: 0;
+        }
+
+        button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: none;
+            border: none;
+            color: #0A6894;
+
+            span {
+                font-size: 22px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+
+        h4,
+        .header-item {
+            font-size: 16px;
+        }
+
+        .header-content {
+            gap: 15px;
+        }
+
+        .header-desktop {
+            display: none;
+        }
+
+        .header-mobile {
+            display: flex;
+        }
+    }
+}
+
+.menu-hamb {
+    width: auto;
+    border-radius: 8px;
+    background-color: #0A6894 !important;
+    z-index: 9999 !important;
+
+    ul {
+        padding-left: 0;
+        padding: 10px;
+        margin-bottom: 0;
+
+        li .p-menuitem-content .p-menuitem-link span {
+            color: #C9E9F2;
+            font-weight: bold;
+        }
+
+        li .p-menuitem-link {
+            text-decoration: none;
+            color: #0A6894;
+            background-color: #0A6894 !important;
+        }
+
+        li .p-menuitem-content:hover {
+            background: 0A6894;
+            color: #C9E9F2;
+
+            .p-menuitem-link span {
+                color: #C9E9F2;
+            }
+        }
+
+        li:hover {
+            color: #0A6894;
+        }
+    }
+}
+
+footer {
+    position: absolute;
+    z-index: 9;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    background-color: #C9E9F2;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media screen and (max-width: 1400px){
+        height: 60px;
+    }
+
+
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h1 {
+            font-family: "Comic Neue", cursive;
+            color: #000;
+            font-weight: bold;
+            margin-bottom: 0;
+
+            @media screen and (max-width: 1400px){
+                font-size: 28px;
+            }
+        }
+
+        div {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+
+            .footer-item {
+                color: #000;
+                cursor: pointer;
+                text-decoration: none;
+                // font-weight: bold;
+                font-size: 14px;
+                margin: 0;
+
+                
+            }
+        }
+    }
+
+
+    @media screen and (max-width: 768px) {
+
+        h4,
+        .header-item {
+            font-size: 16px;
+        }
+
+        .header-content {
+            gap: 15px;
+        }
+    }
+}
+
+.logotea {
+    justify-content: center;
+    align-items: center;    
+}

@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda+SC:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&display=swap');
+
+.profile-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 85%;
+    max-width: 800px;
+    background-color: #0A6894;
+    padding: 50px;
+    position: relative;
+    min-height: 360px;
+    height: fit-content;
+    color: #C9E9F2;
+    margin-bottom: 40px;
+    margin-top: 30px;
+
+    &-content{
+        display: flex;
+        align-items: center;
+        gap: 50px;
+
+        img{
+            max-width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        }
+        h1{
+            font-family: "Edu AU VIC WA NT Hand", cursive;
+            color: #C9E9F2;
+        }
+        h5{
+            font-size: 16px;
+            color: #C9E9F2;
+        }
+
+        .p-inputtext, .p-dropdown{
+            background: none;
+            border: none;
+            border-bottom: #C9E9F2 1px solid;
+            color: #C9E9F2;
+
+            width: 45%;
+            margin: 10px;
+
+            .p-inputtext{
+                width: unset;
+                border: none;
+            }
+
+            &::placeholder{
+                color: #C9E9F2;
+            }
+            &:focus{
+                box-shadow: none;
+
+            }
+        }
+        .p-dropdown{
+            width: 100%;
+
+            &.p-focus{
+                box-shadow: none;
+            }
+        }
+
+        .perfil-tab{
+            .p-tabview-nav{
+                background: none;
+                border: none;
+                gap: 8px;
+                padding-left: 0;
+
+                li a{
+                    background: white;
+                    padding: 13px;
+                    color: #0A6894;
+                    border: none;
+                    text-decoration: none;
+                    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+                    font-weight: 400;
+
+                }
+                .p-tabview-selected a{
+                    font-weight: bold;
+                }
+            }
+            .p-tabview-panels{
+                background: none;
+            }
+        }
+
+        @media (max-width: 900px){
+            flex-direction: column;
+            .p-inputtext, .p-dropdown{
+                width: 90%;
+            }
+            .p-tabview-panels{
+                padding: 20px 0;
+            }
+        }
+    }
+
+    .selectTab{
+        position: absolute;
+        width: 50px;
+        left: -48px;
+
+        button{
+            background: white;
+            color: #0A6894;
+            border: none;
+            &:focus{
+                box-shadow: none;
+            }
+            &.check{
+                background-color: #0A6894;
+                color: white;
+            }
+        }
+    }
+    button.edit{
+        position: absolute;
+        bottom: -20px;
+        right: -20px;
+
+        background-color: white;
+        color: #0A6894;
+        border: none;
+    }
+
+    .accept-card{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #C9E9F2;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        margin-bottom: 8px;
+
+
+        &-body{
+            p{
+                margin-bottom: 0;
+                color: #0A6894;
+            }
+        }
+
+        button{
+            background: #0A6894;
+            border: none;
+            margin-left: 10px;
+        }
+    }
+
+    @media (max-width: 900px){
+        margin-top: 80px;
+
+        .selectTab{
+            left: 50%;
+            transform: translateX(-50%);
+            top: -48px;
+            display: inline-flex;
+            width: 100px;
+        }
+        .accept-card{
+            &-body{
+                p{
+                   font-size: 13px;
+                }
+            }
+        }
+    }
+}
+
+
+.dropdown-terapeutas{
+    z-index: 9999;
+    .p-dropdown-items-wrapper ul{
+        padding-left: 0;
+    }
+}

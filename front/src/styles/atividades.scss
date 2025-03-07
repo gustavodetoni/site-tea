@@ -1,0 +1,75 @@
+.activies{
+    padding: 30px;
+  
+    h2, .current-hability{
+      text-decoration: none;
+      color: #000;
+      font-weight: bold;
+      font-size: 30px;
+    }
+    h4{
+      color: #000;
+      font-size: 16px;
+      font-weight: normal;
+    }
+  
+    .next-prev-buttons{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 30px;
+      margin-top: 20px;
+  
+      button{
+        background: none !important;
+        border: none;
+        color: #000;
+        font-weight: bold;
+        // width: 22px;
+        span{
+          padding: 5px;
+          border-bottom: 1px solid #0A6894;
+        }
+      }
+    }
+  
+    .box{
+      background-color: #0A6894;
+      color: white;
+      font-size: 16px;
+      padding: 15px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      height: fit-content;
+  
+      .title{
+        font-size: 18px;
+        font-weight: bold;
+      }
+    }
+  
+    &-grid{ 
+      margin-top: 20px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-flow: column;
+        grid-auto-rows: min-content;
+        gap: 10px;
+        @media (max-width: 900px) {
+          grid-template-columns: 1fr;
+          grid-auto-flow: row;
+        }
+    }
+
+    .img-atividade{
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+
+      img{
+        width: 300px;
+      }
+    }
+  }

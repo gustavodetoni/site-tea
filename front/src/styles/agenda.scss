@@ -1,0 +1,227 @@
+.tabela-de-sequencia {
+    padding: 30px;
+
+    table {
+        width: 100%;
+
+        thead {
+            background-color: #0A6894;
+            height: 60px;
+
+            th {
+                position: relative;
+                border-radius: 10px 10px 0 0;
+                color: white;
+                padding: 0 30px;
+
+                .question {
+                    border: #0A6894 1px solid;
+                    position: absolute;
+                    right: 30px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    font-size: 20px;
+                }
+            }
+        }
+
+        tbody {
+            margin: 0 1px;
+            background-color: white;
+            margin: 0 10px;
+
+            tr {
+                height: 50px;
+                border-top: none;
+                border: #0A6894 1px solid;
+
+                td {
+                    padding: 15px;
+                    vertical-align: top;
+                    position: relative;
+
+                    p {
+                        margin-bottom: 10px;
+                        color: #0A6894;
+                        font-weight: bold;
+                    }
+
+                    .atividades-escolhidas {
+                        label {
+                            padding: 8px;
+                            border: 1px solid #0A6894;
+                            color: #0A6894;
+                            margin-right: 10px;
+                            margin-bottom: 10px;
+                            border-radius: 10px;
+                            font-size: 14px;
+                            cursor: pointer;
+
+                            &.check {
+                                background-color: #0A6894;
+                                color: #fff;
+                            }
+
+                        }
+
+                        .checkbox-progress {
+                            display: none;
+                        }
+                    }
+
+                    button,
+                    .multiselect-face {
+                        border: solid 1px #0A6894;
+                        background-color: none;
+                        color: #0A6894;
+                        width: 32px;
+                        height: 32px;
+
+                        position: absolute;
+                        top: 10px;
+                        right: 20px;
+
+                        .p-multiselect-label-container {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+
+                            .p-multiselect-label {
+                                padding: 0;
+                                font-size: 18px;
+                                color: #0A6894;
+
+                                &:hover {
+                                    color: white;
+                                }
+                            }
+                        }
+
+                        .p-multiselect-trigger {
+                            display: none;
+                        }
+
+                        &:hover {
+                            background-color: #0A6894;
+                            color: white;
+                            border-color: white;
+                        }
+                    }
+                }
+            }
+            .chat-container{
+                display: flex;
+                .input-chat{
+                    flex: 1;
+                    height: 48px;
+                    border-radius: 0;
+                    border-color: #0A6894;
+                    border-width: 0 0 1px 1px;
+
+                    &:focus{
+                        box-shadow: none;
+                    }
+                }
+                .p-button{
+                    margin-top: 0;
+                    border-radius: 0;
+                }
+
+                @media(max-width: 767px){
+                    flex-direction: column;
+                    .input-chat{
+                        border-width: 1px;
+                    }
+                }
+            }
+        }
+    }
+
+    button{
+        background: #0A6894;
+        border: none;
+        border-radius: 8px;
+        margin-top: 15px;
+    }
+
+    .progress-container{
+        margin: 20px 0;
+        h3{
+            color: #0A6894;
+
+        }
+    }
+
+}
+.dropdown-paciente-agenda{
+    padding: 0 30px;
+    p{
+        background-color: #0A6894;
+        padding: 10px 20px;
+        font-size: 20px;
+        color: white;
+        width: 245px;
+        margin-bottom: 0;
+        border-radius: 8px 8px 0 0;
+    }
+    .p-dropdown{
+        border: #0A6894 1px solid;
+        border-radius: 0 0 8px 8px;
+        width: 245px;
+    }
+    .p-dropdown:not(.p-disabled).p-focus{
+        box-shadow: none;
+    }
+
+}
+
+.p-multiselect-panel {
+    max-width: 100%;
+}
+
+.multiselect-atividades {
+    .p-multiselect-select-all {
+        display: none;
+    }
+
+    .p-multiselect-items-wrapper {
+        ul {
+            padding-left: 0;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        max-width: 80%;
+
+        .p-multiselect-items .p-multiselect-item span {
+            text-wrap: wrap;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        max-width: 80%;
+    }
+}
+
+.tooltip-question {
+    width: 200px;
+}
+
+.p-progressbar {
+    height: 20px;
+    background-color: #fff;
+    border: 1px solid #0A6894;
+
+    .p-progressbar-value {
+        background-color: #0A6894;
+    }
+}
+
+.tooltip-atividade{
+    font-size: 1rem;
+    pointer-events: auto !important;
+
+    .p-tooltip-text a{
+        color: #fff;
+    }
+}

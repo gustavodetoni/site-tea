@@ -1,0 +1,42 @@
+.habilidades-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 40px;
+
+    h1{
+        color: #000;
+        margin-bottom: 35px;
+    }
+    h3{
+        font-size: 18px;
+        text-align: justify;
+        color: #000;
+        margin-bottom: 35px;
+    }
+
+    .atividades{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        .atividade{
+            padding: 10px;
+            border: #000 1px solid;
+            color: #000;
+            border-radius: 8px;
+            display: inline-block;
+    
+            &:hover{
+                color: white;
+                background-color: #000;
+                cursor: pointer;
+            }
+        }
+    }
+
+    @media (max-width: 900px) {
+        padding: 30px;
+    }
+}
