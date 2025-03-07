@@ -12,7 +12,7 @@ const QuemSomos = () => {
 
                 <div className='d-flex'>
                     <div className='card-quem-somos'>
-                        <img src={midbanner} />
+                        <img src={midbanner} alt="midbanner" />
                         <div>
                             <p>Ana Carolina Silva</p>
                             <p>Especialista em Marketing de Conteúdo</p>
@@ -20,7 +20,7 @@ const QuemSomos = () => {
                         </div>
                     </div>
                     <div className='card-quem-somos'>
-                        <img src={midbanner} />
+                        <img src={midbanner} alt="midbanner"/>
                         <div>
                             <p>Ana Carolina Silva</p>
                             <p>Especialista em Marketing de Conteúdo</p>

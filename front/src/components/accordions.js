@@ -8,8 +8,6 @@ import { Button } from 'primereact/button';
 import { treeTableAtv } from "../mocks/atividades";
 import { atividade } from "../mocks/atividades";
 
-
-
 const Accordions = () => {
 
   const stepperRef = useRef(null);

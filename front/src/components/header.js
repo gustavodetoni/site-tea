@@ -1,5 +1,5 @@
 import '../styles/main.scss'
-import React, { useEffect, useRef, useContext } from 'react'
+import React, { useRef, useContext } from 'react'
 import Container from 'react-bootstrap/Container';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';

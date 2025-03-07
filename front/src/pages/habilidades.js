@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { atividade } from "../mocks/atividades";
 import Container from 'react-bootstrap/esm/Container';
 import '../styles/habilidades.scss'

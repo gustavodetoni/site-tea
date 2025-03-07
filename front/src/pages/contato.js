@@ -36,7 +36,7 @@ const Contato = () => {
             });
 
             const data = await response.json();
-
+            console.log(data);
             if (response.ok) {
                 toast.current.show({
                     severity: 'success',

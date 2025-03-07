@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import '../styles/profile.scss'
 import React, { useEffect, useState, useContext, useRef } from 'react'
 import { Button } from 'primereact/button';
@@ -112,7 +113,7 @@ const Perfil = () => {
         }
     };    
 
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         fetchAllPacients();
         if(user) countRelations();
