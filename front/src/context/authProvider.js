@@ -6,7 +6,7 @@ import { url } from '../url';
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(true);
     const [token, setToken] = useState(null);
     const savedToken = localStorage.getItem('token');
     const [user, setUser] = useState()
@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         checkToken();
         getUser();
-    }, []);
+    }, [token]);
 
     const logout = () => {
         localStorage.removeItem('token');

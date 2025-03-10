@@ -11,6 +11,7 @@ import { TabView, TabPanel } from 'primereact/tabview';
 import { Toast } from 'primereact/toast';
 import { useNavigate } from 'react-router-dom';
 import { url } from '../url';
+import { Loading } from '../components/loading';
 
 const Perfil = () => {
     const [isPerfil, setIsPerfil] = useState(true)
@@ -22,6 +23,8 @@ const Perfil = () => {
     const toast = useRef()
     const navigate = useNavigate()
     const { user, token, logout } = useContext(AuthContext);
+    const [isLoading, setIsLoading] = useState(false);
+    
     
 
     // Método para buscas os pacientes disponiveis
@@ -37,21 +40,25 @@ const Perfil = () => {
 
     // Método para enviar solicitacão de amizades
     const sendRequest = async () => {
+        setIsLoading(true)
         try {
             const data = await fetchData(`${url}/api/request`, 'POST', { therapist_id: user?.id, patient_id: paciente }, token);
-    
+            
             if (data) {
                 fetchAllPacients();
                 countRelations();
                 toast.current.show({severity:'success', summary: 'Sucesso', detail:'Solicitação enviada!', life: 3000});
             }
+            setIsLoading(false)
         } catch (error) {
             toast.current.show({severity:'error', summary: 'Erro', detail:'Erro ao enviar solicitação, verifique se ela já existe!', life: 3000});
+            setIsLoading(false)
         }
     }
 
     // Método para aceitar solicitacão de amizades
     const onAccept = async (idTerapeuta) => {
+        setIsLoading(true)
         try {
             const response = await fetch(`${url}/api/pacientes`, {
                 method: 'POST',
@@ -61,12 +68,13 @@ const Perfil = () => {
                 },
                 body: JSON.stringify({ therapist_id: idTerapeuta, patient_id: user?.id }),
             });
-    
+            
             if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(errorData.message || 'Erro ao aceitar amizade.');
+                setIsLoading(false)
             }
-        
+            
             fetchAllPacients();
             countRelations()
             toast.current.show({
@@ -75,6 +83,7 @@ const Perfil = () => {
                 detail: 'Amizade aceita com sucesso!',
                 life: 3000
             });
+            setIsLoading(false)
         } catch (error) {
             toast.current.show({
                 severity: 'error',
@@ -83,32 +92,39 @@ const Perfil = () => {
                 life: 3000
             });
             console.error('Erro ao aceitar amizade:', error);
+            setIsLoading(false)
         }
     };
 
     const deleteFriendship = async (id) => {
+        setIsLoading(true)
         try {
             const data = await fetchData(`${url}/api/request/${id}`, 'DELETE', null, token);
-    
+            
             if (data) {
                 fetchAllPacients();
                 countRelations();
                 toast.current.show({severity:'success', summary: 'Sucesso', detail:'Amizade deletada!', life: 3000});
+                setIsLoading(false)
             }
         } catch (error) {
             toast.current.show({severity:'error', summary: 'Erro', detail:'Erro ao cancelar amizade!', life: 3000});
+            setIsLoading(false)
         }
     }
     
-
+    
     // Método para trazer as amizades
     const countRelations = async () => {
         if(user){
+            setIsLoading(true)
             try {
                 const data = await fetchData(`${url}/api/pacientes/${user?.id}?user_type_id=${user?.user_type_id}`, 'GET', null, token);
                 setListOfRelations(data)
+                setIsLoading(false)
             } catch (error) {
                 console.log(error);
+                setIsLoading(false)
             }
         }
     };    
@@ -121,13 +137,11 @@ const Perfil = () => {
         if(user?.user_type_id === 1){
             setIsTerapeuta(true)
         }
-    }, [user])
-
-console.log(user)
-  
+    }, [user])  
 
     return (
         <>
+        {isLoading && <Loading />}
         <Toast ref={toast} />
         <div className='profile-container'>
             <div className='profile-container-content'>

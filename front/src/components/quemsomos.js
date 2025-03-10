@@ -14,17 +14,8 @@ const QuemSomos = () => {
                     <div className='card-quem-somos'>
                         <img src={midbanner} alt="midbanner" />
                         <div>
-                            <p>Ana Carolina Silva</p>
-                            <p>Especialista em Marketing de Conteúdo</p>
-                            <p>anacarolina@email.com</p>
-                        </div>
-                    </div>
-                    <div className='card-quem-somos'>
-                        <img src={midbanner} alt="midbanner"/>
-                        <div>
-                            <p>Ana Carolina Silva</p>
-                            <p>Especialista em Marketing de Conteúdo</p>
-                            <p>anacarolina@email.com</p>
+                            <p>Equipe Estimula TEA</p>
+                            <p>institutotea7@gmail.com</p>
                         </div>
                     </div>
                 </div>

@@ -30,7 +30,6 @@ const Agenda = () => {
     
     const onSaveSequencia = async (isPaciente = false) => {
       try {
-        console.log(prepareDataForBackend(sequenciaEscolhidaBack), user.user_type_id === 1 ? pacienteID.user_id : user.id)
           const response = await fetch(`${url}/api/cronograma/`, {
               method: isEdit ? 'PUT' : 'POST',
               headers: {

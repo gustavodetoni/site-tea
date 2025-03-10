@@ -11,12 +11,14 @@ import { AuthContext } from '../context/authProvider';
 import Container from 'react-bootstrap/Container';
 import Input from '../components/input';
 import { url } from '../url';
+import { Loading } from '../components/loading';
         
 
 const Login = () => {
 
     const [user, setUser] = useState({user_type_id: null, name: '', email: '', phone: null, child_name: '', child_gender: '', child_birthdate: null, senha: null});
     const [isRegistering, setIsRegistering] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const toast = useRef(null);
     const navigate = useNavigate()
     const { isAuthenticated, login, getUser } = useContext(AuthContext);
@@ -28,6 +30,7 @@ const Login = () => {
     }, [isAuthenticated, navigate]);
 
     const handleLogin = async () => {
+        setIsLoading(true)
         try {
             const response = await fetch(`${url}/api/login`, {
                 method: 'POST',
@@ -36,26 +39,27 @@ const Login = () => {
                 },
                 body: JSON.stringify({ email: user.email, senha: user.senha }),
             });
-            
             if (response.ok) {
                 toast.current.show({severity:'success', summary: 'Sucesso', detail:'Usuário logado', life: 3000});
                 const result = await response.json();
                 login(result.token);
                 getUser()
                 navigate('/');
-                
+                setIsLoading(false)
             } else {
                 toast.current.show({severity:'error', summary: 'Erro', detail:'Erro ao realizar login', life: 3000});
-
+                setIsLoading(false)
             }
         } catch (error) {
             console.error('Erro ao enviar dados para o backend:', error);
+            setIsLoading(false)
         }
     };
 
 
     return (
         <Container className={isRegistering ? 'container-login container-cadastro' : 'container-login'}>
+            {isLoading && <Loading />}
             <Container className='container-login-content'>
                 <Toast ref={toast} />
                 <section className='user-form'>
@@ -88,7 +92,7 @@ const Login = () => {
                                 </div>
                             </>
                         ) : (
-                            <Cadastro user={user} setUser={setUser} setIsRegistering={setIsRegistering} toast={toast}/>
+                            <Cadastro user={user} setUser={setUser} setIsRegistering={setIsRegistering} toast={toast} setIsLoading={setIsLoading}/>
                         )}
                         
                     </div>
@@ -109,19 +113,17 @@ const Login = () => {
     );
 }
 
-const Cadastro = ({ user, setUser, setIsRegistering, toast }) => { 
+const Cadastro = ({ user, setUser, setIsRegistering, toast, setIsLoading }) => { 
     const [isFormValid, setIsFormValid] = useState(false);
     const [hasEspeciality, setHasEspeciality] = useState(false);
 
     useEffect(() => {
-        console.log('esp', hasEspeciality)
         const areFieldsFilled = Object.entries(user)
             .filter(([key]) => {
                 if (hasEspeciality) return key !== 'child_birthdate' && key !== 'child_name';
                 return key !== 'especialidade';
             })
 
-        console.log(areFieldsFilled)
         const arePasswordsEqual = user.senha === user.confirmarSenha;
 
         setIsFormValid(areFieldsFilled && arePasswordsEqual);
@@ -130,6 +132,7 @@ const Cadastro = ({ user, setUser, setIsRegistering, toast }) => {
     }, [user, hasEspeciality]);
 
     const OnSave = async () => {
+        setIsLoading(true)
         try {
             const response = await fetch(`${url}/api/register`, {
                 method: 'POST',
@@ -141,10 +144,13 @@ const Cadastro = ({ user, setUser, setIsRegistering, toast }) => {
             if (response.ok) {
                 toast.current.show({severity:'success', summary: 'Sucesso', detail:'Usuário cadastrado', life: 3000});
                 setIsRegistering(false)
+                setIsLoading(false)
             } else {
-                toast.current.show({severity:'error', summary: 'Erro', detail:'Usuário não cadastrado', life: 3000});
+                toast.current.show({severity:'error', summary: 'Erro', detail:'Erro ao cadastrar usuário', life: 3000});
+                setIsLoading(false)
             }
         } catch (error) {
+            setIsLoading(false)
         }
     };
 
