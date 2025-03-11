@@ -1,14 +1,16 @@
 import "../styles/App.scss";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import { Link } from 'react-router-dom';
-import React  from "react";
+import React, {useContext}  from "react";
 import banner from '../images/logoteasemf.png';
 import midbanner from '../images/diariotea.png';
 import Accordions from "../components/accordions";
 import Agenda from "../components/agenda";
 import QuemSomos from "../components/quemsomos";
+import { AuthContext } from "../context/authProvider";
 
 function Home() {
+    const { isAuthenticated} = useContext(AuthContext);
 
   return (
     <>
@@ -23,7 +25,7 @@ function Home() {
           <div>
             <h3>Acesse e acompanhe a programação desenvolvida especialmente para apoiar o desenvolvimento do seu filho!</h3>
           </div>
-          <div className="buttoncenter"><Link className='button button-primary' to="/login">EXPERIMENTE GRÁTIS</Link></div>
+          {!isAuthenticated && <div className="buttoncenter"><Link className='button button-primary' to="/login">EXPERIMENTE GRÁTIS</Link></div>}
           <div className="buttoncenter"><Link className='button button-secondary' to="/contato">CONVERSAR COM A GENTE</Link></div>
         </div>
       </div>
@@ -50,7 +52,7 @@ function Home() {
               realizada de forma adequada e no momento certo.
             </h3>
           </div>
-          <div><Link className='midbutton midbutton-primary' to="/login">EXPERIMENTE GRÁTIS</Link></div>
+          {!isAuthenticated && <div><Link className='midbutton midbutton-primary' to="/login">EXPERIMENTE GRÁTIS</Link></div>}
         </div>
       </div>
 
