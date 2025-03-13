@@ -198,12 +198,12 @@
 
   }
 
-  &.container-cadastro{
-    min-height: max-content;
 
     @media (max-width: 676px ){
       height: 100%;
     }
+  &.container-cadastro{
+    min-height: max-content;
 
     .container-login-content{
       margin-top: 20px;
