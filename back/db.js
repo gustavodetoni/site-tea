@@ -1,4 +1,4 @@
-import mysql from "mysql2"
+import mysql from "mysql2";
 
 export const db = mysql.createPool({
   host: process.env.DB_HOST || "localhost",
@@ -11,11 +11,11 @@ export const db = mysql.createPool({
   queueLimit: 0
 });
 
-db.connect((err) => {
+db.getConnection((err, connection) => {
     if (err) {
-      console.error("Erro ao conectar ao banco de dados:", err);
-      return;
+        console.error("Erro ao conectar ao banco de dados:", err);
+        return;
     }
-    console.log("Conexão bem-sucedida com o banco de dados!", db.config.host);
+    console.log("Conexão bem-sucedida com o banco de dados!", db.config.connectionConfig.host);
+    connection.release(); 
 });
-  
