@@ -72,7 +72,7 @@ const Accordions = () => {
             <br /><br />
             Para um melhor prognóstico, é essencial que a criança com TEA seja estimulada precocemente.
             <br /><br />
-            Esse App se destina a pais e cuidadores com objetivo de orientar e apresentar um Protocolo de Estimulação para crianças com TEA desenvolvido e apresentado no Programa de Pós Graduação Scritu Sensu em Distúrbios do Desenvolvimento.    
+            Esse site se destina a pais e cuidadores com objetivo de orientar e apresentar um Protocolo de Estimulação para crianças com TEA desenvolvido e apresentado no Programa de Pós Graduação Scritu Sensu em Distúrbios do Desenvolvimento.    
           </p>
         </AccordionTab>
         <AccordionTab header={accordionHeader('Benefícios', 4)}>
@@ -89,11 +89,11 @@ const Accordions = () => {
         <AccordionTab header={accordionHeader('Orientações', 2)}>
           <Stepper ref={stepperRef} style={{ flexBasis: '10rem' }} className="home-stepper">
             <StepperPanel >
-              <p>Este é um App destinado a pais e terapeutas e contém 1 Protocolo  de Estimulação Psicomotora para criança com TEA a fim de estimular o desenvolvimento psicomotor. </p>
+              <p>Este é um site destinado a pais e terapeutas e contém 1 Protocolo  de Estimulação Psicomotora para criança com TEA a fim de estimular o desenvolvimento psicomotor. </p>
               <Button label="Próximo" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current.nextCallback()} />
             </StepperPanel>
             <StepperPanel>
-              <p>As atividades estão organizadas em uma  lista, e você poderá escolher a sequencia a ser realizada ou seguir uma sugestão do App.</p>
+              <p>As atividades estão organizadas em uma  lista, e você poderá escolher a sequencia a ser realizada ou seguir uma sugestão do site.</p>
               <Button label="Prévio" icon="pi pi-arrow-left" iconPos="left" onClick={() => stepperRef.current.prevCallback()} />
               <Button label="Próximo" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current.nextCallback()} />
             </StepperPanel>

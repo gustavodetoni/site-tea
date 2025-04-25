@@ -56,12 +56,24 @@
                             border-radius: 10px;
                             font-size: 14px;
                             cursor: pointer;
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 5px;
 
                             &.check {
                                 background-color: #0A6894;
                                 color: #fff;
                             }
 
+                            &.readonly {
+                                cursor: default;
+                                opacity: 0.8;
+                            }
+
+                            .atividade-link-label {
+                                margin-left: 5px;
+                                cursor: pointer;
+                            }
                         }
 
                         .checkbox-progress {
@@ -109,31 +121,6 @@
                     }
                 }
             }
-            .chat-container{
-                display: flex;
-                .input-chat{
-                    flex: 1;
-                    height: 48px;
-                    border-radius: 0;
-                    border-color: #0A6894;
-                    border-width: 0 0 1px 1px;
-
-                    &:focus{
-                        box-shadow: none;
-                    }
-                }
-                .p-button{
-                    margin-top: 0;
-                    border-radius: 0;
-                }
-
-                @media(max-width: 767px){
-                    flex-direction: column;
-                    .input-chat{
-                        border-width: 1px;
-                    }
-                }
-            }
         }
     }
 
@@ -148,11 +135,147 @@
         margin: 20px 0;
         h3{
             color: #0A6894;
-
         }
     }
 
+    .mensagens-card {
+        margin: 20px 0;
+        border: 1px solid #0A6894;
+        border-radius: 8px;
+        overflow: hidden;
+
+        .mensagens-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            
+            h3 {
+                color: #0A6894;
+                margin: 0;
+            }
+        }
+
+        .mensagens-container {
+            max-height: 200px; 
+            overflow-y: auto;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+
+            .sem-mensagens {
+                text-align: center;
+                color: #666;
+                padding: 10px; 
+            }
+
+            .mensagem-item {
+                margin-bottom: 10px; 
+                padding: 8px; 
+                border-radius: 8px;
+                position: relative;
+
+                &.terapeuta {
+                    background-color: #e3f2fd;
+                    margin-right: 20px;
+                    border-left: 4px solid #0A6894;
+                }
+
+                &.paciente {
+                    background-color: #e8f5e9;
+                    margin-left: 20px;
+                    border-left: 4px solid #4caf50;
+                }
+
+                .mensagem-cabecalho {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 3px; 
+                    
+                    .remetente-nome {
+                        font-weight: bold;
+                        margin-left: 8px;
+                        color: #333;
+                        font-size: 0.9rem; 
+                    }
+                    
+                    .mensagem-data {
+                        font-size: 0.75rem; 
+                        color: #666;
+                        margin-left: auto;
+                    }
+                }
+
+                .mensagem-texto {
+                    padding: 3px 0; 
+                    word-break: break-word;
+                    font-size: 0.9rem; 
+                }
+            }
+        }
+
+        .chat-container {
+            display: flex;
+            width: 100%;
+            
+            .input-chat {
+                flex: 1;
+                height: 48px;
+                border-radius: 8;
+                border-color: #0A6894;
+                border-width: 1px;
+                min-width: 0; 
+                
+                &:focus {
+                    box-shadow: none;
+                }
+            }
+            
+            .p-button {
+                margin-top: 0;
+                border-radius: 8;
+                white-space: nowrap; 
+                flex-shrink: 0; 
+            }
+        }
+    }
+
+    .p-tabview {
+        .p-tabview-nav {
+            border-color: #0A6894;
+            
+            li {
+                .p-tabview-nav-link {
+                    color: #0A6894;
+                    
+                    &:not(.p-disabled):focus {
+                        box-shadow: 0 0 0 0.2rem rgba(10, 104, 148, 0.2);
+                    }
+                }
+                
+                &.p-highlight .p-tabview-nav-link {
+                    background: #0A6894;
+                    border-color: #0A6894;
+                    color: #ffffff;
+                }
+            }
+        }
+    }
+
+    .atividade-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        
+        .atividade-link {
+            margin-left: 8px;
+            cursor: pointer;
+            color: #0A6894;
+        }
+    }
 }
+
 .dropdown-paciente-agenda{
     padding: 0 30px;
     p{
@@ -172,7 +295,6 @@
     .p-dropdown:not(.p-disabled).p-focus{
         box-shadow: none;
     }
-
 }
 
 .p-multiselect-panel {
@@ -223,5 +345,72 @@
 
     .p-tooltip-text a{
         color: #fff;
+    }
+}
+
+@media (max-width: 767px) {
+    .tabela-de-sequencia {
+        padding: 15px; 
+        
+        table {
+            thead th {
+                padding: 0 15px; 
+                
+                .question {
+                    right: 15px; 
+                }
+            }
+            
+            tbody td {
+                padding: 10px; 
+            }
+        }
+        
+        .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+            padding: 0.8rem; 
+        }
+    }
+    
+    .dropdown-paciente-agenda {
+        padding: 0 15px; 
+        
+        p {
+            width: 100%; 
+            font-size: 16px; 
+        }
+        
+        .p-dropdown {
+            width: 100%; 
+        }
+    }
+    
+    .mensagens-card .chat-container {
+        flex-direction: column;
+        
+        .input-chat {
+            border-width: 1px;
+            width: 100% !important;
+        }
+        
+        .p-button {
+            width: 100%;
+            margin-top: 5px !important;
+        }
+    }
+    
+    .mensagens-card {
+        .mensagens-container {
+            max-height: 150px; 
+        }
+        
+        .mensagem-item {
+            margin-left: 5px !important;
+            margin-right: 5px !important;
+            
+            &.terapeuta, &.paciente {
+                margin-left: 5px !important;
+                margin-right: 5px !important;
+            }
+        }
     }
 }
