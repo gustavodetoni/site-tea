@@ -1,13 +1,13 @@
 import { db } from "../db.js";
-import logger from '../logger.js'; // Adicione o import do logger
+import logger from '../logger.js'; 
 
 export const addSchedule = async (req, res) => {
-    const { user_id, week_1, week_2, week_3, week_4, week_5, week_6, week_7, week_8, mensagem } = req.body;
-    const q = 'INSERT INTO schedules (user_id, week_1, week_2, week_3, week_4, week_5, week_6, week_7, week_8, mensagem) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    const { user_id, week_1, week_2, week_3, week_4, week_5, week_6, week_7, week_8, mensagem, fromTherapist } = req.body;
+    const q = 'INSERT INTO schedules (user_id, week_1, week_2, week_3, week_4, week_5, week_6, week_7, week_8, mensagem, fromTherapist) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
     logger.info(`Tentando adicionar agenda para o usuário ID: ${user_id}`);
 
-    db.query(q, [user_id, week_1, week_2, week_3, week_4, week_5, week_6, week_7, week_8, mensagem], (error) => {
+    db.query(q, [user_id, week_1, week_2, week_3, week_4, week_5, week_6, week_7, week_8, mensagem, fromTherapist], (error) => {
         if (error) {
             logger.error("Erro ao adicionar agenda:", error);
             return res.status(500).json({ message: "Erro ao adicionar agenda", error });
@@ -19,12 +19,12 @@ export const addSchedule = async (req, res) => {
 };
 
 export const editSchedule = async (req, res) => {
-    const { week_1, week_2, week_3, week_4, week_5, week_6, week_7, week_8, mensagem, id } = req.body;
-    const q = "UPDATE schedules SET `week_1` = ?, `week_2` = ?, `week_3` = ?, `week_4` = ?, `week_5` = ?, `week_6` = ?, `week_7` = ?, `week_8` = ?, `mensagem` = ? WHERE `id` = ?;";
+    const { week_1, week_2, week_3, week_4, week_5, week_6, week_7, week_8, mensagem, fromTherapist, id } = req.body;
+    const q = "UPDATE schedules SET `week_1` = ?, `week_2` = ?, `week_3` = ?, `week_4` = ?, `week_5` = ?, `week_6` = ?, `week_7` = ?, `week_8` = ?, `mensagem` = ?, `fromTherapist` = ? WHERE `id` = ?;";
 
     logger.info(`Tentando editar agenda com ID: ${id}`);
 
-    db.query(q, [week_1, week_2, week_3, week_4, week_5, week_6, week_7, week_8, mensagem, id], (error) => {
+    db.query(q, [week_1, week_2, week_3, week_4, week_5, week_6, week_7, week_8, mensagem, fromTherapist, id], (error) => {
         if (error) {
             logger.error("Erro ao editar agenda:", error);
             return res.status(500).json({ message: "Erro ao editar agenda", error });

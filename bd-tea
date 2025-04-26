@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS schedules (
     week_7 TEXT NOT NULL,
     week_8 TEXT NOT NULL,
     mensagem TEXT NOT NULL,
+    fromTherapist BOOLEAN NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 

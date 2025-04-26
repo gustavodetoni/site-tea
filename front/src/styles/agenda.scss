@@ -276,31 +276,70 @@
     }
 }
 
-.dropdown-paciente-agenda{
+.dropdown-paciente-agenda {
+    max-width: 1200px; // Limita a largura máxima da tabela
+    margin: 0 auto; // Centraliza na tela
     padding: 0 30px;
-    p{
-        background-color: #0A6894;
-        padding: 10px 20px;
-        font-size: 20px;
-        color: white;
-        width: 245px;
-        margin-bottom: 0;
-        border-radius: 8px 8px 0 0;
+    margin-bottom: 20px;
+    
+    p {
+      background-color: #0A6894;
+      padding: 10px 20px;
+      font-size: 20px;
+      color: white;
+      width: 100%; // Ajusta para a largura do container pai
+      margin-bottom: 0;
+      border-radius: 8px 8px 0 0;
     }
-    .p-dropdown{
-        border: #0A6894 1px solid;
-        border-radius: 0 0 8px 8px;
-        width: 245px;
+    
+    .p-dropdown {
+      border: #0A6894 1px solid;
+      border-radius: 0 0 8px 8px;
+      width: 100%; // Ajusta para a largura do container pai
     }
-    .p-dropdown:not(.p-disabled).p-focus{
-        box-shadow: none;
+    
+    .p-dropdown:not(.p-disabled).p-focus {
+      box-shadow: none;
     }
-}
+  }
+  
+  // Correção para o painel do dropdown quando aberto
+  .p-dropdown-panel {
+    width: auto !important;
+    max-width: 100px !important;
+    
+    .p-dropdown-items-wrapper {
+      max-width: 100% !important;
+      
+      .p-dropdown-filter-container {
+        width: auto !important;
+        max-width: 100% !important;
+        
+        input {
+          width: 100% !important;
+          max-width: 100% !important;
+        }
+      }
+    }
+  }
 
 .p-multiselect-panel {
     max-width: 100%;
 }
 
+
+// Correção para o campo de pesquisa principal
+.tabela-de-sequencia {
+    max-width: 1200px; // Limita a largura máxima da tabela
+    margin: 0 auto; // Centraliza na tela
+    
+    table {
+      width: 100%;
+      max-width: 100%;
+
+    }
+  }
+  
 .multiselect-atividades {
     .p-multiselect-select-all {
         display: none;
@@ -347,6 +386,83 @@
         color: #fff;
     }
 }
+
+/* Estilos adicionais para o modo de edição */
+.edit-mode-controls {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .edit-mode-controls .p-button {
+    background-color: #0a6894;
+    border-color: #0a6894;
+  }
+  
+  .edit-mode-controls .p-button:hover {
+    background-color: #085578;
+    border-color: #085578;
+  }
+  
+  .edit-mode-controls .p-button.p-button-outlined {
+    background-color: transparent;
+    color: #0a6894;
+  }
+  
+  .edit-mode-controls .p-button.p-button-outlined:hover {
+    background-color: rgba(10, 104, 148, 0.1);
+  }
+  
+  /* Corrigir o tamanho do dropdown */
+  .dropdown-paciente-agenda .p-dropdown {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  .p-dropdown-panel {
+    width: auto !important;
+    max-width: 500px !important;
+  }
+  
+  .p-dropdown-items-wrapper {
+    max-width: 100% !important;
+  }
+  
+  /* Estilo para atividades clicáveis */
+  .atividades-escolhidas label {
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .atividades-escolhidas label:hover {
+    background-color: rgba(10, 104, 148, 0.1);
+  }
+  
+  .atividades-escolhidas label.check {
+    background-color: #0a6894;
+    color: #fff;
+  }
+  
+  /* Melhorar a visualização das mensagens */
+  .mensagens-container {
+    max-height: 250px;
+  }
+  
+  .mensagem-item {
+    animation: fadeIn 0.3s ease;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
 
 @media (max-width: 767px) {
     .tabela-de-sequencia {

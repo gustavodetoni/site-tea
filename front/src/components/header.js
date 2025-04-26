@@ -12,18 +12,35 @@ const Header = (props) => {
   const menuRight = useRef(null);
   const { isAuthenticated, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+  const scrollToElement = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  };
+  
   const items = [
     {
       label: "Home",
-      command: () => navigate("/#"),
+      command: () => {
+        navigate("/#")
+        setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }));
+      },
+      
     },
     {
       label: "Quem Somos",
-      command: () => navigate("/#quemsomos"),
+      command: () => {
+        navigate("/#quemsomos")
+        setTimeout(() => scrollToElement("quemsomos"));
+      },
     },
     {
       label: "Minha Agenda",
-      command: () => navigate("/#agenda"),
+      command: () => {
+        navigate("/#agenda")
+        setTimeout(() => scrollToElement("agenda"));
+      },
     },
     {
       label: "Contato",
@@ -56,7 +73,6 @@ const Header = (props) => {
       <header>
         <Container className="header-content header-desktop">
           <div>
-            {/* <img src={logotipo} alt="logotipo" width={70} /> */}
             <HashLink
               to="/#"
               className="header-item"
