@@ -61,6 +61,7 @@ const Agenda = () => {
   }
 
   const updateProgress = (semana, atividadeId, isChecked) => {
+    console.log("Updating progress:", semana, atividadeId, isChecked);
     const novaSequencia = [...sequenciaEscolhidaBack];
     const semanaIndex = novaSequencia.findIndex((item) => Object.keys(item)[0] === semana);
   
@@ -72,11 +73,12 @@ const Agenda = () => {
       if (atividadeIndex !== -1) {
         atividades[atividadeIndex] = {
           ...atividades[atividadeIndex],
-          check: !atividades[atividadeIndex].check, // Inverte o estado de check
+          check: !atividades[atividadeIndex].check,
         };
         semanaObj[semana] = atividades;
         novaSequencia[semanaIndex] = semanaObj;
         setSequenciaEscolhidaBack(novaSequencia);
+        console.log("Progress updated:", novaSequencia);
       }
     }
   };
@@ -478,11 +480,11 @@ const Agenda = () => {
                             sequenciaEscolhida={sequenciaEscolhidaBack}
                             setSequenciaEscolhida={setSequenciaEscolhidaBack}
                             pacienteView={!editMode} // Modo paciente quando não está em edição
-                            readOnly={!editMode} // Somente leitura quando não está em edição
+                            readOnly={false} // IMPORTANTE: Alterado para false para permitir marcar como concluído
                             onAtividadeClick={(semana, atividadeId, isChecked) => {
-                              // Correção aqui: sempre atualizar o progresso se não estiver em modo de edição
+                              // Sempre permitir atualizar o progresso quando não está em modo de edição
                               if (!editMode) {
-                                updateProgress(semana, atividadeId, isChecked)
+                                updateProgress(semana, atividadeId, isChecked);
                               }
                             }}
                           />
@@ -535,9 +537,9 @@ const Agenda = () => {
                             sequenciaEscolhida={sequenciaEscolhidaBack}
                             setSequenciaEscolhida={setSequenciaEscolhidaBack}
                             pacienteView={true}
-                            readOnly={false} // Permitir marcar como concluído, mas não editar
+                            readOnly={false} // IMPORTANTE: Alterado para false para permitir marcar como concluído
                             onAtividadeClick={(semana, atividadeId, isChecked) => {
-                              updateProgress(semana, atividadeId, isChecked)
+                              updateProgress(semana, atividadeId, isChecked);
                             }}
                           />
                         )

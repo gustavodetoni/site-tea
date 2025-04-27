@@ -60,6 +60,7 @@
         gap: 8px;
         transition: background-color 0.2s ease;
         font-weight: 500;
+        white-space: nowrap; /* Prevent text wrapping in buttons */
         
         &:hover {
           background-color: rgba(255, 255, 255, 0.3);
@@ -333,10 +334,12 @@
   }
 }
 
+/* Fix for the dropdown width */
 .dropdown-terapeutas {
   z-index: 9999;
-  width: 100% !important;
+  width: auto !important; /* Change from 100% to auto */
   max-width: 100% !important;
+  min-width: 100% !important; /* Add min-width to match the field width */
   
   .p-dropdown-items-wrapper ul {
     padding-left: 0;
@@ -358,7 +361,7 @@
     margin: 20px auto;
     
     &-header {
-      height: 220px; /* Increased height to accommodate buttons */
+      height: 250px; /* Increased height for better spacing */
       padding-top: 20px;
       flex-direction: column;
       align-items: center;
@@ -373,7 +376,8 @@
         position: relative;
         right: auto;
         bottom: auto;
-        margin-top: 60px; /* Added space below profile image */
+        margin-top: 30px;
+        margin-bottom: 10px; /* Increased spacing */
         width: 100%;
         justify-content: center;
         z-index: 5;
@@ -398,9 +402,10 @@
       .connection-card {
         flex-direction: column;
         text-align: center;
+        align-items: center; /* Center all items */
         
         .connection-avatar {
-          margin: 0 auto 15px; /* Centered avatar */
+          margin: 0 0 15px; /* Changed margin to properly center avatar */
         }
         
         .connection-info {
