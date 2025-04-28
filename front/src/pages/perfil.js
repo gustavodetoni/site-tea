@@ -13,6 +13,9 @@ import { Toast } from "primereact/toast"
 import { useNavigate } from "react-router-dom"
 import { url } from "../url"
 import { Loading } from "../components/loading"
+import { Dialog } from "primereact/dialog"
+import { InputMask } from "primereact/inputmask"
+import { Password } from "primereact/password"
 
 const Perfil = () => {
   const [activeTab, setActiveTab] = useState("profile")
@@ -21,10 +24,28 @@ const Perfil = () => {
   const [listaTerapeutas, setListaTerapeutas] = useState([])
   const [listOfRelations, setListOfRelations] = useState([])
   const [userFirstName, setUserFirstName] = useState("")
+  const [editDialogVisible, setEditDialogVisible] = useState(false)
+  const [editUserData, setEditUserData] = useState({
+    name: "",
+    phone: "",
+    especialidade: "",
+    child_name: "",
+    child_birthdate: "",
+    email: "",
+  })
   const toast = useRef()
   const navigate = useNavigate()
-  const { user, token, logout } = useContext(AuthContext)
+  const { user, token, logout, getUser } = useContext(AuthContext)
   const [isLoading, setIsLoading] = useState(false)
+
+  // Adicionar estado para controle de senha
+  const [showPasswordFields, setShowPasswordFields] = useState(false)
+  const [passwordData, setPasswordData] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  })
+  const [passwordError, setPasswordError] = useState("")
 
   // Update the fetchAllPacients method to filter out patients who already have connections
   const fetchAllPacients = async () => {
@@ -185,6 +206,109 @@ const Perfil = () => {
     return name ? name.charAt(0).toUpperCase() : "?"
   }
 
+  // Abrir o diálogo de edição e preencher com os dados atuais
+  const openEditDialog = () => {
+    setEditUserData({
+      name: user?.name || "",
+      phone: user?.phone || "",
+      especialidade: user?.especialidade || "",
+      child_name: user?.child_name || "",
+      child_birthdate: user?.child_birthdate || "",
+      email: user?.email || "",
+    })
+    setEditDialogVisible(true)
+  }
+
+  // Modificar a função updateUserProfile para incluir a senha
+  const updateUserProfile = async () => {
+    setIsLoading(true)
+
+    // Verificar se está alterando a senha e validar
+    if (showPasswordFields) {
+      if (!passwordData.currentPassword) {
+        toast.current.show({
+          severity: "error",
+          summary: "Erro",
+          detail: "Digite sua senha atual",
+          life: 3000,
+        })
+        setIsLoading(false)
+        return
+      }
+
+      if (passwordData.newPassword !== passwordData.confirmPassword) {
+        toast.current.show({
+          severity: "error",
+          summary: "Erro",
+          detail: "As senhas não coincidem",
+          life: 3000,
+        })
+        setIsLoading(false)
+        return
+      }
+
+      if (passwordData.newPassword.length < 6) {
+        toast.current.show({
+          severity: "error",
+          summary: "Erro",
+          detail: "A senha deve ter pelo menos 6 caracteres",
+          life: 3000,
+        })
+        setIsLoading(false)
+        return
+      }
+    }
+
+    try {
+      // Preparar dados para envio, incluindo senha se necessário
+      const dataToSend = { ...editUserData }
+      if (showPasswordFields) {
+        dataToSend.senha = passwordData.newPassword
+      }
+
+      const response = await fetch(`${url}/api/usuario/${user?.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(dataToSend),
+      })
+
+      if (response.ok) {
+        toast.current.show({
+          severity: "success",
+          summary: "Sucesso",
+          detail: "Perfil atualizado com sucesso!",
+          life: 3000,
+        })
+        setEditDialogVisible(false)
+        // Resetar estados de senha
+        setShowPasswordFields(false)
+        setPasswordData({
+          currentPassword: "",
+          newPassword: "",
+          confirmPassword: "",
+        })
+        setPasswordError("")
+        // Atualizar os dados do usuário no contexto
+        getUser()
+        setIsLoading(false)
+      } else {
+        const errorData = await response.json()
+        throw new Error(errorData.message || "Erro ao atualizar perfil.")
+      }
+    } catch (error) {
+      toast.current.show({
+        severity: "error",
+        summary: "Erro",
+        detail: error.message || "Erro ao atualizar perfil.",
+        life: 3000,
+      })
+      setIsLoading(false)
+    }
+  }
+
   // Update useEffect to call fetchAllPacients after countRelations
   useEffect(() => {
     if (user) {
@@ -197,6 +321,128 @@ const Perfil = () => {
       }
     }
   }, [user])
+
+  // Modificar a função renderEditForm para incluir os campos de senha
+  const renderEditForm = () => {
+    return (
+      <div className="edit-form">
+        <div className="info-field">
+          <label>Nome Completo</label>
+          <InputText
+            value={editUserData.name}
+            onChange={(e) => setEditUserData({ ...editUserData, name: e.target.value })}
+          />
+        </div>
+
+        <div className="info-field">
+          <label>Telefone</label>
+          <InputMask
+            mask="(99)99999-9999"
+            value={editUserData.phone}
+            onChange={(e) => setEditUserData({ ...editUserData, phone: e.target.value })}
+          />
+        </div>
+
+        {isTerapeuta ? (
+          <div className="info-field">
+            <label>Especialidade</label>
+            <InputText
+              value={editUserData.especialidade}
+              onChange={(e) => setEditUserData({ ...editUserData, especialidade: e.target.value })}
+            />
+          </div>
+        ) : (
+          <>
+            <div className="info-field">
+              <label>Nome da Criança</label>
+              <InputText
+                value={editUserData.child_name}
+                onChange={(e) => setEditUserData({ ...editUserData, child_name: e.target.value })}
+              />
+            </div>
+
+            <div className="info-field">
+              <label>Idade da Criança</label>
+              <InputText
+                value={editUserData.child_birthdate}
+                onChange={(e) => setEditUserData({ ...editUserData, child_birthdate: e.target.value })}
+              />
+            </div>
+          </>
+        )}
+
+        <div className="info-field">
+          <label>Email</label>
+          <InputText
+            value={editUserData.email}
+            onChange={(e) => setEditUserData({ ...editUserData, email: e.target.value })}
+            disabled
+          />
+        </div>
+
+        <div className="info-field password-toggle">
+          <Button
+            label={showPasswordFields ? "Cancelar alteração de senha" : "Alterar senha"}
+            icon={showPasswordFields ? "pi pi-times" : "pi pi-lock"}
+            className="p-button-text"
+            onClick={() => setShowPasswordFields(!showPasswordFields)}
+          />
+        </div>
+
+        {showPasswordFields && (
+          <>
+            <div className="info-field">
+              <label>Senha Atual</label>
+              <Password
+                value={passwordData.currentPassword}
+                onChange={(e) => setPasswordData({ ...passwordData, currentPassword: e.target.value })}
+                feedback={false}
+                toggleMask
+              />
+            </div>
+
+            <div className="info-field">
+              <label>Nova Senha</label>
+              <Password
+                value={passwordData.newPassword}
+                onChange={(e) => setPasswordData({ ...passwordData, newPassword: e.target.value })}
+                toggleMask
+              />
+            </div>
+
+            <div className="info-field">
+              <label>Confirmar Nova Senha</label>
+              <Password
+                value={passwordData.confirmPassword}
+                onChange={(e) => setPasswordData({ ...passwordData, confirmPassword: e.target.value })}
+                feedback={false}
+                toggleMask
+              />
+            </div>
+
+            {passwordError && (
+              <div className="info-field password-error">
+                <p className="error-message">{passwordError}</p>
+              </div>
+            )}
+          </>
+        )}
+      </div>
+    )
+  }
+
+  // Rodapé do diálogo com botões de ação
+  const dialogFooter = (
+    <div className="dialog-footer">
+      <Button
+        label="Cancelar"
+        icon="pi pi-times"
+        className="p-button-text"
+        onClick={() => setEditDialogVisible(false)}
+      />
+      <Button label="Salvar" icon="pi pi-check" onClick={updateUserProfile} />
+    </div>
+  )
 
   return (
     <>
@@ -271,6 +517,7 @@ const Perfil = () => {
               </div>
 
               <div className="action-buttons">
+                <Button label="Editar Perfil" icon="pi pi-pencil" className="primary" onClick={openEditDialog} />
                 <Button
                   label="Sair"
                   icon="pi pi-sign-out"
@@ -289,7 +536,7 @@ const Perfil = () => {
                   <h2>Gerenciar Pacientes</h2>
                   <p>Adicione novos pacientes ou gerencie os existentes.</p>
 
-                  <div className="info-field" style={{ maxWidth: "100%" }}>
+                  <div className="patient-selection-container">
                     <label>Selecione um paciente para enviar solicitação</label>
                     <Dropdown
                       value={paciente}
@@ -299,8 +546,7 @@ const Perfil = () => {
                       onChange={(e) => setPaciente(e.value)}
                       placeholder="Buscar paciente por email"
                       filter
-                      panelClassName="dropdown-terapeutas"
-                      style={{ width: "100%" }}
+                      className="patient-dropdown"
                     />
                   </div>
 
@@ -431,6 +677,18 @@ const Perfil = () => {
           )}
         </div>
       </div>
+
+      {/* Diálogo de edição de perfil */}
+      <Dialog
+        header="Editar Perfil"
+        visible={editDialogVisible}
+        style={{ width: "90%", maxWidth: "600px" }}
+        footer={dialogFooter}
+        onHide={() => setEditDialogVisible(false)}
+        className="edit-profile-dialog"
+      >
+        {renderEditForm()}
+      </Dialog>
     </>
   )
 }

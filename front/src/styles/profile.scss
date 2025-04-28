@@ -334,23 +334,134 @@
   }
 }
 
-/* Fix for the dropdown width */
-.dropdown-terapeutas {
-  z-index: 9999;
-  width: auto !important; /* Change from 100% to auto */
-  max-width: 100% !important;
-  min-width: 100% !important; /* Add min-width to match the field width */
+/* Novo container para o dropdown de pacientes */
+.patient-selection-container {
+  margin-bottom: 20px;
   
-  .p-dropdown-items-wrapper ul {
-    padding-left: 0;
+  label {
+    display: block;
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 10px;
+    font-weight: 500;
   }
   
-  .p-dropdown-item {
-    padding: 12px 15px;
-    transition: background-color 0.2s;
+  .patient-dropdown {
+    width: 100%;
+    position: relative;
     
-    &:hover {
-      background-color: #f0f7fc;
+    .p-dropdown-panel {
+      position: absolute;
+      width: 100% !important;
+      left: 0 !important;
+      right: auto !important;
+      top: 100% !important;
+      margin-top: 5px;
+    }
+  }
+}
+
+/* Corrigir o dropdown na aba de pacientes */
+.p-dropdown {
+  width: 100%;
+  
+  .p-dropdown-panel {
+    width: 100% !important;
+    left: 0 !important;
+    right: auto !important;
+  }
+}
+
+/* Estilos para o diálogo de edição de perfil */
+.edit-profile-dialog {
+  .p-dialog-content {
+    padding: 20px;
+  }
+  
+  .edit-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    
+    .info-field {
+      margin-bottom: 15px;
+      
+      label {
+        display: block;
+        font-size: 0.85rem;
+        color: #666;
+        margin-bottom: 5px;
+        font-weight: 500;
+      }
+      
+      .p-inputtext, .p-inputmask {
+        width: 100%;
+        background-color: #f5f9fc;
+        border: 1px solid #e0e7ec;
+        border-radius: 8px;
+        padding: 12px 15px;
+        color: #333;
+        
+        &:focus {
+          border-color: #0A6894;
+        }
+      }
+    }
+  }
+
+  .password-toggle {
+    grid-column: 1 / -1;
+    margin-top: 10px;
+
+    .p-button-text {
+      padding-left: 0;
+      color: #0A6894;
+
+      &:hover {
+        background-color: transparent;
+        color: #095a7e;
+      }
+    }
+  }
+
+  .password-error {
+    grid-column: 1 / -1;
+
+    .error-message {
+      color: #ef4444;
+      font-size: 0.85rem;
+      margin: 0;
+    }
+  }
+
+  .p-password {
+    width: 100%;
+
+    input {
+      width: 100%;
+      background-color: #f5f9fc;
+      border: 1px solid #e0e7ec;
+      border-radius: 8px;
+      padding: 12px 15px;
+      color: #333;
+    }
+  }
+  
+  .dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    
+    .p-button {
+      border-radius: 8px;
+      
+      &.p-button-text {
+        color: #666;
+        
+        &:hover {
+          background-color: #f0f0f0;
+        }
+      }
     }
   }
 }
@@ -428,14 +539,10 @@
     }
   }
   
-  /* Fix dropdown in mobile view */
-  .p-dropdown {
-    width: 100% !important;
-  }
-  
-  .dropdown-terapeutas {
-    width: 90% !important;
-    max-width: 90vw !important;
-    left: 5% !important;
+  /* Ajustes para o diálogo de edição em dispositivos móveis */
+  .edit-profile-dialog {
+    .edit-form {
+      grid-template-columns: 1fr;
+    }
   }
 }
