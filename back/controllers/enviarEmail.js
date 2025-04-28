@@ -17,8 +17,21 @@ export const contatoEmail = (req, res) => {
   const mailOptions = {
     from: email, // E-mail do usuário que preencheu o formulário
     to: process.env.EMAIL_USER, // E-mail do proprietário do site (destinatário)
-    subject: subject,
-    text: `Nome: ${name}\nProblema: ${message}`,
+    subject: `📩 TEA - Novo Contato: ${subject}`,
+    html: `
+      <div style="font-family: Arial, sans-serif; padding: 20px;">
+        <h1 style="color: #333;">Nova Mensagem de Contato</h1>
+        <p style="font-size: 18px;"><strong>Nome:</strong> ${name}</p>
+        <p style="font-size: 18px;"><strong>E-mail:</strong> ${email}</p>
+        <p style="font-size: 18px;"><strong>Assunto:</strong> ${subject}</p>
+        <h2 style="margin-top: 30px;">Mensagem:</h2>
+        <p style="font-size: 20px; background: #f5f5f5; padding: 15px; border-radius: 8px;">
+          ${message}
+        </p>
+        <br/>
+        <p style="font-size: 16px; color: #777;">Enviado pelo site.</p>
+      </div>
+    `,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
