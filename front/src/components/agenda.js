@@ -586,7 +586,7 @@ const Agenda = () => {
                         value={mensagemEnviada}
                         onChange={(e) => setMensagemEnviada(e.target.value)}
                       />
-                      <Button label="Enviar" icon="pi pi-send" onClick={() => onSaveSequencia(true)} />
+                      <Button label="Enviar Mensagem" icon="pi pi-send" onClick={() => onSaveSequencia(true)} />
                     </div>
                   </Card>
 
@@ -673,7 +673,7 @@ const Agenda = () => {
                       value={mensagemEnviada}
                       onChange={(e) => setMensagemEnviada(e.target.value)}
                     />
-                    <Button label="Enviar" icon="pi pi-send" onClick={() => onSaveSequencia(true)} />
+                    <Button label="Enviar Mensagem" icon="pi pi-send" onClick={() => onSaveSequencia(true)} />
                   </div>
                 </Card>
 
@@ -681,11 +681,13 @@ const Agenda = () => {
                   <h3>Progresso do paciente</h3>
                   <ProgressBar value={calcularProgresso(sequenciaEscolhidaBack)}></ProgressBar>
                 </div>
-                <Button
-                  label={isEdit ? "Atualizar Cronograma" : "Salvar Cronograma"}
-                  onClick={() => onSaveSequencia(false)}
-                  disabled={!pacienteID}
-                />
+                <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                  <Button
+                    label={isEdit ? "Atualizar Cronograma" : "Salvar Cronograma"}
+                    onClick={() => onSaveSequencia(false)}
+                    disabled={!pacienteID}
+                  />
+                </div>
               </>
             )}
           </div>
