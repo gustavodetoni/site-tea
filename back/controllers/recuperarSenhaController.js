@@ -4,9 +4,12 @@ import bcrypt from 'bcryptjs';
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
-    host: "smt.gmail.com",
+    host: "smtp.gmail.com",
     port: 587,
     secure: false,
+    connectionTimeout: 60000, 
+    greetingTimeout: 60000,   
+    socketTimeout: 60000,     
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
@@ -63,12 +66,9 @@ export const recuperarSenhaController = {
     },
 
     verificarCodigo: (req, res) => {
-        console.log(req.body)
         const { email, codigo } = req.body;
 
         const saved = resetCodes.get(email);
-        console.log("codigo enviado pelo backend", saved)
-        console.log("codigo enviado pelo frontend", codigo)
 
         if (!saved) {
             return res.status(400).send({ message: "Código expirado ou inválido" });
